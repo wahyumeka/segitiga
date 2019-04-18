@@ -1,7 +1,9 @@
+<?php include 'connected.php';?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>kakulator lingkaran</title>
+	<title>kakulator segitiga</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
@@ -32,11 +34,18 @@
 
 				<form class="login100-form validate-form"action="index.php"method="post">
 					<span class="login100-form-title">
-						Penghitungan Lingkaran
+						Penghitungan segitiga
 					</span>
 
 					<div class="wrap-input100 validate-input" data-validate = "Masukan data anda">
 						<input class="input100" type="text" name="alas" placeholder="alas">
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="-" aria-hidden="true"></i>
+						</span>
+					</div>
+					<div class="wrap-input100 validate-input" data-validate = "Masukan data anda">
+						<input class="input100" type="text" name="tinggi" placeholder="tinggi">
 						<span class="focus-input100"></span>
 						<span class="symbol-input100">
 							<i class="-" aria-hidden="true"></i>
@@ -59,12 +68,35 @@
 				</form>
 				<?php
 				if(isset($_POST['submit'])){
-				$jari = $_POST['jari'];
-				$phi=3.14;
-				$luas_lingkaran = 3.14* $jari * jari; // menghitung luas lingkaran
-				echo "Luas segitiga dengan :$3,14, dan $jari-jari <br>";
-				echo "yaitu $luas_segitiga";
+				$alas  = $_POST['alas'];
+				$tinggi = $_POST['tinggi'];
+				$luas_segitiga = 1/2* $alas * $tinggi; // menghitung luas lingkaran
+				// echo "Luas segitiga dengan :$3,14, dan $jari-jari <br>";
+				// echo "yaitu $luas_segitiga";
+				
+				$tanggal_hari_ini = date('Y-m-d',time());
+
+				$sql = "INSERT INTO segitiga (id,alas, tinggi, luas,created_date)
+				VALUES (null,'$alas', '$tinggi', '$luas_segitiga','$tanggal_hari_ini')";
+
+				if ($conn->query($sql) === TRUE) {
+				echo "New record created successfully";
+				} else {
+				echo "Error: " . $sql . "<br>" . $conn->error;
 				}
+				}
+
+				// $tanggal_hari_ini = data ('y-m-d'time());
+				// $sql = "INSERT INTO segitiga(id,alas,tinggi,luas,created_data)
+				// values (null'$alas','$tinggi','$luas_segitiga','$tanggal_hari_ini')";
+
+				// if ($conn->query($sql) === TRUE){
+				// 	echo "New recor created successfully";
+				// } else { 
+				// 	echo "Error:" . $sql. "<br>",. $conn->error;
+
+				// }
+
 			
 				?>
 	
